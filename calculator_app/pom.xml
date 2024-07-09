@@ -14,6 +14,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jersey-version>2.27</jersey-version>
+        <tomcat.url>${env.TOMCAT_URL}</tomcat.url>
+        <tomcat.username>${env.TOMCAT_PASSWORD}</tomcat.username>
+        <tomcat.password>${env.TOMCAT_USERNAME}</tomcat.password>
+        <tomcat.path>${env.TOMCAT_PATH}</tomcat.path>
     </properties>
 
     <scm>
@@ -188,32 +192,72 @@
             </plugin>
 
              <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.6.9</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat8x</containerId>
-                        <home>/usr/local/apache-tomcat-8.5.82/</home>
-                    </container>
-                    <configuration>
-                        <type>existing</type>
-                        <home>/usr/local/apache-tomcat-8.5.82/</home>
-                    </configuration>
-                </configuration>
+                 <groupId>org.codehaus.cargo</groupId>
+                 <artifactId>cargo-maven2-plugin</artifactId>
+                 <version>1.7.16</version>
+                 <configuration>
+                     <container>
+                         <containerId>tomcat10x</containerId>
+                         <type>remote</type>
+                     </container>
+                     <configuration>
+                         <type>runtime</type>
+                         <properties>
+                             <cargo.remote.username>${tomcat.username}</cargo.remote.username>
+                             <cargo.remote.password>${tomcat.password}</cargo.remote.password>
+                             <cargo.remote.uri>${tomcat.url}</cargo.remote.uri>
+                         </properties>
+                     </configuration>
+                     <deployables>
+                         <deployable>
+                             <groupId>${project.groupId}</groupId>
+                             <artifactId>${project.artifactId}</artifactId>
+                             <type>war</type>
+                             <properties>
+                                 <context>${tomcat.path}</context>
+                             </properties>
+                         </deployable>
+                     </deployables>
+                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>deploy-to-tomcat</id>
+                        <phase>deploy</phase> <!-- or any other appropriate phase -->
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>curl</executable>
+                            <arguments>
+                                <argument>-u</argument>
+                                <argument>${tomcat.username}:${tomcat.password}</argument> <!-- Replace with actual username and password -->
+                                <argument>-T</argument>
+                                <argument>${project.build.directory}/${project.build.finalName}.war</argument>
+                                <argument>${tomcat.url}/deploy?path=${tomcat.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://3.6.89.223:8080/manager/text</url>
-                    <server>tomcat</server>
-                    <username>manager</username>
-                    <password>password</password>
-                    <path>/calculator</path>
+                    <url>${tomcat.url}</url>
+                    <username>${tomcat.username}</username>
+                    <password>${tomcat.password}</password>
+                    <path>${tomcat.path}</path>
+                    <timeout>60000</timeout>
                     <update>true</update>
+                    <warFile>${project.build.directory}/${project.build.finalName}.war</warFile>
                 </configuration>
             </plugin>
 
@@ -229,7 +273,17 @@
                             <goal>jmeter</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
                 </executions>
+                 <configuration>
+                    <!-- Other configurations -->
+                    <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
+                </configuration>
             </plugin>
             
             <plugin>
@@ -237,18 +291,6 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <username>username</username>
-                    <password>password</password>
-                    <tagBase>https://github.com/maping/java-maven-calculator-web-app.git</tagBase>
-                    <branchBase>https://github.com/maping/java-maven-calculator-web-app.git</branchBase>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
