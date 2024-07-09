@@ -1,28 +1,72 @@
 pipeline {
-    agent any 
+    agent any
 
     tools {
-        maven 'maven-3.9.5'
+        maven 'maven_tool'
+    }
+
+    environment {
+        TOMCAT_URL = 'http://3.110.117.248:8080/'
     }
 
     stages {
-        stage ('Build-Maven') {
+
+        stage('Code Checkout with checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                        branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
+                        credentialsId: 'github_hp']]])
+            }
+        }
+
+        stage('Unit Testing') {
             steps {
                 sh '''
-                    cd ./maven/simple-war/
-                    mvn clean package
-                    cd ./target/
-                    ls
+                    ls -lrt
+                    cd ./calculator_app/
+                    mvn clean test
                 '''
             }
         }
 
-        stage ('Deploy-Tomcat') {
+        stage('Integration Test') {
+            steps {
+                sh '''
+                    ls -lrt
+                    cd ./calculator_app/
+                    mvn jmeter:configure
+                    mvn clean integration-test
+                '''
+            }
+        }
+
+        stage('Performance Test - JMeter') {
+            steps {
+                sh '''
+                    ls -lrt
+                    cd ./calculator_app/
+                    mvn clean verify
+                '''
+            }
+        }
+
+        stage('Build Package') {
+            steps {
+                sh '''
+                    ls -lrt
+                    cd ./calculator_app/
+                    mvn clean package -Dmaven.test.skip=true
+                '''
+            }
+        }
+
+        stage('Deploy-Tomcat') {
             steps {
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-manager', path: '', url: 'http://3.6.89.223:8080/')], 
-                                     contextPath: '/itdefined-war-1.0.0', 
-                                     war: 'maven/simple-war/target/itdefined-war-1.0.0.war'
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
+                                     contextPath: '/calculator',
+                                     war: 'calculator_app/target/calculator.war'
                 }
             }
         }
