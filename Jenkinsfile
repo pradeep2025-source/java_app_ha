@@ -145,10 +145,10 @@ pipeline {
             // cleanWs()
             publishHTML (target: [
                 allowMissing: false,
-                alwaysLinkToLastBuild: false,
+                alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: '.',
-                reportFiles: './target/jmeter/reports/CalculatorTestPlan/index.html',
+                reportDir: 'target/jmeter/reports/CalculatorTestPlan',
+                reportFiles: 'index.html',
                 reportName: 'JMeter Report',
                 ])
 
