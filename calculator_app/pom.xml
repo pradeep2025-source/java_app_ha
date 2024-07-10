@@ -279,7 +279,7 @@
                     </execution>
                     <execution>
                         <id>configuration</id>
-                        <phase>verify</phase>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>configure</goal>
                         </goals>
