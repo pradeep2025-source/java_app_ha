@@ -272,6 +272,10 @@
                         <goals>
                             <goal>jmeter</goal>
                         </goals>
+                        <configuration>
+                            <!-- Other configurations -->
+                            <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>configuration</id>
@@ -279,12 +283,12 @@
                         <goals>
                             <goal>configure</goal>
                         </goals>
+                        <configuration>
+                            <!-- Configuration specific to the configure goal -->
+                        </configuration>
                     </execution>
                 </executions>
-                 <configuration>
-                    <!-- Other configurations -->
-                    <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
-                </configuration>
+
             </plugin>
 
             <plugin>

@@ -56,7 +56,7 @@ pipeline {
             steps {
                 sh '''
                     cd ./calculator_app/
-                    mvn clean package -Dmaven.test.skip=true
+                    mvn clean package
                 '''
             }
         }
