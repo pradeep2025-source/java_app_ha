@@ -29,7 +29,7 @@ pipeline {
             steps {
                 sh '''
                     cd ./calculator_app/
-                    mvn clean test -Dmaven.jmeter.skip=true
+                    mvn clean test
                 '''
             }
         }
@@ -47,7 +47,7 @@ pipeline {
                 dir('./calculator_app') {
                     sh '''
                         mvn jmeter:configure
-                        mvn clean verify -Dmaven.test.skip=true -Dmaven.integration-test.skip=true
+                        mvn clean verify
                     '''
                 }
             }

@@ -275,6 +275,7 @@
                     </execution>
                     <execution>
                         <id>configuration</id>
+                        <phase>verify</phase>
                         <goals>
                             <!-- <goal>configure</goal> -->
                         </goals>
