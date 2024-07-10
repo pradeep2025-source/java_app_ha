@@ -24,7 +24,6 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean test
                 '''
@@ -34,7 +33,6 @@ pipeline {
         stage('Integration Test') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn jmeter:configure
                     mvn clean integration-test
@@ -45,7 +43,6 @@ pipeline {
         stage('Performance Test - JMeter') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean verify
                 '''
@@ -55,7 +52,6 @@ pipeline {
         stage('Build Package') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean package -Dmaven.test.skip=true
                 '''
