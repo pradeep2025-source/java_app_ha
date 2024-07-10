@@ -276,8 +276,11 @@
                     <execution>
                         <id>configuration</id>
                         <goals>
-                            <goal>configure</goal>
+                            <!-- <goal>configure</goal> -->
                         </goals>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
                     </execution>
                 </executions>
                  <configuration>
