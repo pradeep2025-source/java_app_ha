@@ -267,6 +267,13 @@
                 <version>3.6.0</version>
                 <executions>
                     <execution>
+                        <id>configuration</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>jmeter-tests</id>
                         <phase>verify</phase>
                         <goals>
@@ -277,16 +284,7 @@
                             <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>configuration</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>configure</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Configuration specific to the configure goal -->
-                        </configuration>
-                    </execution>
+
                 </executions>
 
             </plugin>
