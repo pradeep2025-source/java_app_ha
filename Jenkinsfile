@@ -5,6 +5,10 @@ pipeline {
         maven 'maven_tool'
     }
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '2'))
+    }
+
     environment {
         TOMCAT_URL = 'http://3.109.213.90:8080'
         CONTEXT_PATH = '/calculator'
@@ -137,6 +141,12 @@ pipeline {
         //     }
         // }
 
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
     }
 
 }
