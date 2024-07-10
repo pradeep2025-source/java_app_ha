@@ -12,51 +12,51 @@ pipeline {
 
     stages {
 
-        // stage('Code Checkout with checkout') {
-        //     steps {
-        //         checkout([$class: 'GitSCM',
-        //                 branches: [[name: 'main']],
-        //                 userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
-        //                 credentialsId: 'github_hp']]])
-        //     }
-        // }
+        stage('Code Checkout with checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                        branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
+                        credentialsId: 'github_hp']]])
+            }
+        }
 
-        // stage('Unit Testing') {
-        //     steps {
-        //         sh '''
-        //             cd ./calculator_app/
-        //             mvn clean test
-        //         '''
-        //     }
-        // }
+        stage('Unit Testing') {
+            steps {
+                sh '''
+                    cd ./calculator_app/
+                    mvn clean test
+                '''
+            }
+        }
 
-        // stage('Integration Test') {
-        //     steps {
-        //         sh '''
-        //             cd ./calculator_app/
-        //             mvn jmeter:configure
-        //             mvn clean integration-test
-        //         '''
-        //     }
-        // }
+        stage('Integration Test') {
+            steps {
+                sh '''
+                    cd ./calculator_app/
+                    mvn jmeter:configure
+                    mvn clean integration-test
+                '''
+            }
+        }
 
-        // stage('Performance Test - JMeter') {
-        //     steps {
-        //         sh '''
-        //             cd ./calculator_app/
-        //             mvn clean verify
-        //         '''
-        //     }
-        // }
+        stage('Performance Test - JMeter') {
+            steps {
+                sh '''
+                    cd ./calculator_app/
+                    mvn clean verify
+                '''
+            }
+        }
 
-        // stage('Build Package') {
-        //     steps {
-        //         sh '''
-        //             cd ./calculator_app/
-        //             mvn clean package -Dmaven.test.skip=true
-        //         '''
-        //     }
-        // }
+        stage('Build Package') {
+            steps {
+                sh '''
+                    cd ./calculator_app/
+                    mvn clean package -Dmaven.test.skip=true
+                '''
+            }
+        }
 
         stage('Deploy-Tomcat') {
             input {
