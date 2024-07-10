@@ -213,7 +213,7 @@
                             <!-- Other configurations -->
                             <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
                             <generateReports>true</generateReports>
-                            <resultsDirectory>/jmeter-reports</resultsDirectory>
+                            <resultsDirectory>./target/jmeter-reports</resultsDirectory>
                             <appendResultsTimestamp>true</appendResultsTimestamp>
                             <reportFormat>html</reportFormat>
                             <ignoreResultFailures>false</ignoreResultFailures>
