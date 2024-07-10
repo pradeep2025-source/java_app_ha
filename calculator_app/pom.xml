@@ -277,7 +277,7 @@
                         <id>configuration</id>
                         <phase>verify</phase>
                         <goals>
-                            <!-- <goal>configure</goal> -->
+                            <goal>configure</goal>
                         </goals>
                         <configuration>
                             <skip>true</skip>
