@@ -37,7 +37,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean integration-test'
+                    sh 'mvn integration-test'
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
         stage('Performance Test - JMeter') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean verify'
+                    sh 'mvn verify'
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 sh '''
                     cd ./calculator_app/
-                    mvn clean package
+                    mvn package
                 '''
             }
         }
