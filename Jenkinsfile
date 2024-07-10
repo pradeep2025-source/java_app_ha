@@ -105,30 +105,30 @@ pipeline {
         //     }
         // }
 
-        stage('Deploy-Tomcat') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'tomcat_manager', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    script {
-                        echo "TOMCAT_URL: ${env.TOMCAT_URL}"
-                        echo "CONTEXT_PATH: ${env.CONTEXT_PATH}"
+        // stage('Deploy-Tomcat') {
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'tomcat_manager', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        //             script {
+        //                 echo "TOMCAT_URL: ${env.TOMCAT_URL}"
+        //                 echo "CONTEXT_PATH: ${env.CONTEXT_PATH}"
 
-                        def check_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} ${env.TOMCAT_URL}/manager/text/list | grep ${env.CONTEXT_PATH}",
-                                           returnStdout: true).trim()
+        //                 def check_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} ${env.TOMCAT_URL}/manager/text/list | grep ${env.CONTEXT_PATH}",
+        //                                    returnStdout: true).trim()
 
-                        if (check_app) {
-                            echo "Application already exists, undeploying it first"
-                            def undeploy_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} ${env.TOMCAT_URL}/manager/text/undeploy?path=${env.CONTEXT_PATH}",
-                                               returnStdout: true).trim()
-                            echo "Undeployed existing application: $undeploy_app"
-                        }
+        //                 if (check_app) {
+        //                     echo "Application already exists, undeploying it first"
+        //                     def undeploy_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} ${env.TOMCAT_URL}/manager/text/undeploy?path=${env.CONTEXT_PATH}",
+        //                                        returnStdout: true).trim()
+        //                     echo "Undeployed existing application: $undeploy_app"
+        //                 }
 
-                        echo "Deploying application to Tomcat."
-                        def undeploy_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} -T calculator_app/target/calculator.war ${env.TOMCAT_URL}/manager/text/deploy?path=${env.CONTEXT_PATH}",
-                                              returnStdout: true).trim()
-                    }
-                }
-            }
-        }
+        //                 echo "Deploying application to Tomcat."
+        //                 def undeploy_app = sh(script: "curl -s -u ${env.USERNAME}:${env.PASSWORD} -T calculator_app/target/calculator.war ${env.TOMCAT_URL}/manager/text/deploy?path=${env.CONTEXT_PATH}",
+        //                                       returnStdout: true).trim()
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 

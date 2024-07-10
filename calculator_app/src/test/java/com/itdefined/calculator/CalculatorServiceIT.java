@@ -1,4 +1,4 @@
-package com.qianhong.calculator;
+package com.itdefined.calculator;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

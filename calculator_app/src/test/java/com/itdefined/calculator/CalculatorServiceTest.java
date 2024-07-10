@@ -1,4 +1,4 @@
-package com.qianhong.calculator;
+package com.itdefined.calculator;
 
 import org.junit.Test;
 

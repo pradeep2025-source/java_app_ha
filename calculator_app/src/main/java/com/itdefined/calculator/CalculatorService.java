@@ -1,4 +1,4 @@
-package com.qianhong.calculator;
+package com.itdefined.calculator;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

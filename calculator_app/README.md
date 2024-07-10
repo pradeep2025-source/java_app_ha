@@ -8,13 +8,13 @@ A Java calculator web app, build by Maven, CI/CD by Jenkins.
 ### 1.1 Start Nexus (Optional)
 ```console
 $ cd ~/sonatype/nexus/bin
-$ ./nexus start 
+$ ./nexus start
 ```
 Visit http://localhost:8081/ with admin/admin123.
 
 ### 1.2 Build
 ```console
-$ mvn clean package -Dmaven.test.skip=true  
+$ mvn clean package -Dmaven.test.skip=true
 ...
 [INFO] Packaging webapp
 [INFO] Assembling webapp [java-maven-calculator-web-app] in [/Users/maping/code/test/java-maven-calculator-web-app/target/calculator]
@@ -64,11 +64,11 @@ $ mvn clean test
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.qianhong.calculator.CalculatorServiceTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.051 s - in com.qianhong.calculator.CalculatorServiceTest
-[INFO] 
+[INFO] Running com.itdefined.calculator.CalculatorServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.051 s - in com.itdefined.calculator.CalculatorServiceTest
+[INFO]
 [INFO] Results:
-[INFO] 
+[INFO]
 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 ```
 ### 1.5 Run Integration Test
@@ -77,11 +77,11 @@ $ mvn clean integration-test
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.qianhong.calculator.CalculatorServiceIT
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.782 s - in com.qianhong.calculator.CalculatorServiceIT
-[INFO] 
+[INFO] Running com.itdefined.calculator.CalculatorServiceIT
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.782 s - in com.itdefined.calculator.CalculatorServiceIT
+[INFO]
 [INFO] Results:
-[INFO] 
+[INFO]
 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 ```
 ### 1.6 Deploy Your Web App to An Existed Tomcat 8x
@@ -108,8 +108,8 @@ $ mvn clean verify
 [INFO] -------------------------------------------------------
 [INFO]  P E R F O R M A N C E    T E S T S
 [INFO] -------------------------------------------------------
-[INFO]  
-[INFO]  
+[INFO]
+[INFO]
 [INFO] Executing test: CalculatorTestPlan.jmx
 [INFO] Starting process with:[java, -Xms512M, -Xmx512M, -jar, ApacheJMeter-4.0.jar, -d, /Users/maping/code/java-maven-calculator-web-app/target/jmeter, -e, -j, /Users/maping/code/java-maven-calculator-web-app/target/jmeter/logs/CalculatorTestPlan.jmx.log, -l, /Users/maping/code/java-maven-calculator-web-app/target/jmeter/results/20190314-CalculatorTestPlan.csv, -n, -o, /Users/maping/code/java-maven-calculator-web-app/target/jmeter/reports/CalculatorTestPlan_20190314_104015, -t, /Users/maping/code/java-maven-calculator-web-app/target/jmeter/testFiles/CalculatorTestPlan.jmx]
 [INFO] Creating summariser <summary>
@@ -134,7 +134,7 @@ $ mvn clean verify
 If you want to see the test plan, you need install Jmeter, then start Jmeter GUI and open java-maven-calculator-web-app/src/test/jmeter/CalculatorTestPlan.jmx.
 ```console
 $ cd ~/apache/jmeter/bin
-$ ./jmeter 
+$ ./jmeter
 ```
 ![image](jmeter-test-plan-02.png)
 
@@ -188,18 +188,18 @@ $ mvn release:prepare
 [INFO] Executing: /bin/sh -c cd /Users/maping/code/java-maven-calculator-web-app && git status --porcelain .
 [INFO] Working directory: /Users/maping/code/java-maven-calculator-web-app
 [INFO] Checking dependencies and plugins for snapshots ...
-What is the release version for "Calculator Web"? (com.qianhong.javawebapp:java-maven-calculator-web-app) 1.0: : 
-What is SCM release tag or label for "Calculator Web"? (com.qianhong.javawebapp:java-maven-calculator-web-app) java-maven-calculator-web-app-1.0: : 
-What is the new development version for "Calculator Web"? (com.qianhong.javawebapp:java-maven-calculator-web-app) 1.1-SNAPSHOT: : 
+What is the release version for "Calculator Web"? (com.itdefined.javawebapp:java-maven-calculator-web-app) 1.0: :
+What is SCM release tag or label for "Calculator Web"? (com.itdefined.javawebapp:java-maven-calculator-web-app) java-maven-calculator-web-app-1.0: :
+What is the new development version for "Calculator Web"? (com.itdefined.javawebapp:java-maven-calculator-web-app) 1.1-SNAPSHOT: :
 [INFO] Transforming 'Calculator Web'...
 [INFO] Not generating release POMs
 ...
 ```
-Now, release java-maven-calculator-web-app 1.0 to your Nexus. 
+Now, release java-maven-calculator-web-app 1.0 to your Nexus.
 ```console
 $ mvn release:perform
 ...
-[INFO] Uploaded to releases: http://localhost:8081/repository/maven-releases/com/qianhong/javawebapp/java-maven-calculator-web-app/1.0/java-maven-calculator-web-app-1.0-javadoc.jar (30 kB at 722 kB/s)
+[INFO] Uploaded to releases: http://localhost:8081/repository/maven-releases/com/itdefined/javawebapp/java-maven-calculator-web-app/1.0/java-maven-calculator-web-app-1.0-javadoc.jar (30 kB at 722 kB/s)
 ...
 ```
 
@@ -285,5 +285,3 @@ $ docker push <Your-ACR-Login-Server>/calculator
 
 ## Reference
 - [Jenkins Pipeline](https://jenkins.io/doc/book/pipeline/)
-
-
