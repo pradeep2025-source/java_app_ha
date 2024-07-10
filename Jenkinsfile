@@ -32,20 +32,20 @@ pipeline {
 
         stage('Integration Test') {
             steps {
-                sh '''
-                    cd ./calculator_app/
-                    mvn jmeter:configure
-                    mvn clean integration-test
-                '''
+                dir('./calculator_app') {
+                    sh '''
+                        mvn jmeter:configure
+                        mvn clean integration-test
+                    '''
+                }
             }
         }
 
         stage('Performance Test - JMeter') {
             steps {
-                sh '''
-                    cd ./calculator_app/
-                    mvn clean verify
-                '''
+                dir('./calculator_app') {
+                    sh 'mvn clean verify'
+                }
             }
         }
 
