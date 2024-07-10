@@ -60,18 +60,18 @@ pipeline {
 
         stage('Deploy-Tomcat') {
             input {
-                message "Do you want to deploy application to Tomcat10 (yes/no)?"
+                message "Do you want to deploy application to Tomcat10?"
                 parameters {
-                    choice(name: 'CHOICE', choices: ['yes', 'no'])
+                    choice(name: 'DEPLOY_CHOICE', choices: ['yes', 'no'])
                 }
             }
             steps {
                 script {
-                    if ( CHOICE == 'yes') {
+                    if ( DEPLOY_CHOICE == 'yes') {
                         echo "Deploying to Tomcat10: $TOMCAT_URL"
-                        // deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
-                        //                  contextPath: "${env.CONTEXT_PATH}",
-                        //                  war: 'calculator_app/target/calculator.war'
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
+                                         contextPath: "${env.CONTEXT_PATH}",
+                                         war: 'calculator_app/target/calculator.war'
                     } else {
                         echo "Skipped deployment to Tomcat10: $TOMCAT_URL"
                     }
