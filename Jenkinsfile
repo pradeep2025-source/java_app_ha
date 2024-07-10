@@ -24,7 +24,6 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean test
                 '''
@@ -34,7 +33,6 @@ pipeline {
         stage('Integration Test') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn jmeter:configure
                     mvn clean integration-test
@@ -45,7 +43,6 @@ pipeline {
         stage('Performance Test - JMeter') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean verify
                 '''
@@ -55,7 +52,6 @@ pipeline {
         stage('Build Package') {
             steps {
                 sh '''
-                    ls -lrt
                     cd ./calculator_app/
                     mvn clean package -Dmaven.test.skip=true
                 '''
@@ -65,9 +61,17 @@ pipeline {
         stage('Deploy-Tomcat') {
             steps {
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
-                                     contextPath: "${env.CONTEXT_PATH}",
-                                     war: 'calculator_app/target/calculator.war'
+                   def userInput = input {
+                                        message "Do you want to deploy application to Tomcat10 (yes/no)?"
+                                        parameters {
+                                            choice(name: 'CHOICE', choices: ['yes', 'no', 'three'])
+                                        }
+                                }
+                    if (userInput == 'yes') {
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
+                                         contextPath: "${env.CONTEXT_PATH}",
+                                         war: 'calculator_app/target/calculator.war'
+                    }
                 }
             }
         }
