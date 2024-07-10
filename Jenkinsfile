@@ -59,14 +59,25 @@ pipeline {
         // }
 
         stage('Deploy-Tomcat') {
+             input {
+                            message "Should we continue?"
+                            ok "Yes, we should."
+                            submitter "alice,bob"
+                            parameters {
+                                string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                            }
+                        }
             steps {
+
                 script {
-                   input {
-                                        message "Do you want to deploy application to Tomcat10 (yes/no)?"
-                                        parameters {
-                                            choice(name: 'CHOICE', choices: ['yes', 'no', 'three'])
-                                        }
-                                }
+                //    input {
+                //                         message "Do you want to deploy application to Tomcat10 (yes/no)?"
+                //                         parameters {
+                //                             choice(name: 'CHOICE', choices: ['yes', 'no', 'three'])
+                //                         }
+                //                 }
+
+
                     if (params.CHOICE == 'yes') {
                         deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
                                          contextPath: "${env.CONTEXT_PATH}",
