@@ -37,7 +37,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean integration-test -Dmaven.test.skip=true'
+                    sh 'mvn clean integration-test'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 dir('./calculator_app') {
                     sh '''
-                        mvn clean verify -Dmaven.test.skip=true -Dmaven.integration-test.skip=true
+                        mvn clean verify -DskipTests
                     '''
                 }
             }
