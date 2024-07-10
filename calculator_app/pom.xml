@@ -282,6 +282,9 @@
                         <configuration>
                             <!-- Other configurations -->
                             <testFilesDirectory>./src/test/jmeter</testFilesDirectory>
+                            <generateReports>true</generateReports>
+                            <reportFormat>html</reportFormat>
+                            <ignoreResultFailures>false</ignoreResultFailures>
                         </configuration>
                     </execution>
 
