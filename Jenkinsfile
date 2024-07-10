@@ -37,10 +37,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 dir('./calculator_app') {
-                    sh '''
-                        mvn jmeter:configure -Dmaven.test.skip=true
-                        mvn clean integration-test -Dmaven.test.skip=true
-                    '''
+                    sh 'mvn clean integration-test -Dmaven.test.skip=true'
                 }
             }
         }
@@ -48,7 +45,10 @@ pipeline {
         stage('Performance Test - JMeter') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean verify -Dmaven.test.skip=true -Dmaven.integration-test.skip=true'
+                    sh '''
+                        mvn jmeter:configure
+                        mvn clean verify -Dmaven.test.skip=true -Dmaven.integration-test.skip=true
+                    '''
                 }
             }
         }
