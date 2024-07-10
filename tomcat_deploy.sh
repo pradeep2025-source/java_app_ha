@@ -13,4 +13,4 @@ if [[ -n "$check_app" ]]; then
 fi
 
 echo "Deploying application to Tomcat."
-curl -T calculator_app/target/calculator.war $3/manager/text/deploy?update=true&path=$4 -u $1:$2
+curl -s -u $1:$2 -T calculator_app/target/calculator.war $3/manager/text/deploy?path=$4 
