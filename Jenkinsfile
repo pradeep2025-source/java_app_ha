@@ -142,7 +142,11 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            // cleanWs()
+            sh '''
+                ls -lrt
+                tree
+            '''
         }
     }
 
