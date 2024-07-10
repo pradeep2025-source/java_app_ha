@@ -46,7 +46,6 @@ pipeline {
             steps {
                 dir('./calculator_app') {
                     sh '''
-                        mvn jmeter:configure
                         mvn clean verify
                     '''
                 }
