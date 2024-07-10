@@ -67,7 +67,7 @@ pipeline {
             }
             steps {
                 script {
-                    if (params.CHOICE == 'yes') {
+                    if ( CHOICE == 'yes') {
                         echo "Deploying to Tomcat10: $TOMCAT_URL"
                         // deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
                         //                  contextPath: "${env.CONTEXT_PATH}",
