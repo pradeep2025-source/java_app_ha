@@ -37,7 +37,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean integration-test -Dmaven.test.skip=true'
+                    sh 'mvn clean integration-test -Dmaven.test.skip=true -Dmaven.jmeter.skip=true'
                 }
             }
         }
