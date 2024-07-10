@@ -143,6 +143,15 @@ pipeline {
     post {
         always {
             // cleanWs()
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: '.',
+                reportFiles: './target/jmeter/reports/CalculatorTestPlan/index.html',
+                reportName: 'JMeter Report',
+                ])
+
             sh '''
                 ls -lrt
                 tree
