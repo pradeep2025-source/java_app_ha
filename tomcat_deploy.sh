@@ -5,7 +5,6 @@ echo "CONTEXT_PATH: $CONTEXT_PATH"
 curl -s -u $1:$2 $3/manager/text/list | grep "$4"
 check_app=$(curl -s -u $1:$2 $3/manager/text/list | grep $4)
 
-echo "CHECK_APP $check_app"
 if [[ -n "$check_app" ]]; then
 	echo "Application already exists, undeploy it first"
 	curl -s -u $1:$2 $3/manager/text/undeploy?path=$4
