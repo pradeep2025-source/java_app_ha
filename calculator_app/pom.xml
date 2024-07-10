@@ -180,7 +180,7 @@
                         <id>run-integration-test</id>
                         <phase>integration-test</phase>
                         <goals>
-                            <goal>test</goal>
+                            <goal>integration-test</goal>
                         </goals>
                         <configuration>
                             <includes>
