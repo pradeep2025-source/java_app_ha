@@ -45,7 +45,7 @@ pipeline {
         stage('Performance Test - JMeter') {
             steps {
                 dir('./calculator_app') {
-                    sh 'mvn clean verify -DskipTests -DskipITs'
+                    sh 'mvn clean verify -DskipTests'
                 }
             }
         }
