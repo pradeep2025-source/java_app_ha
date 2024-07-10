@@ -147,7 +147,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'target/jmeter/reports/CalculatorTestPlan',
+                reportDir: 'calculator_app/target/jmeter/reports/CalculatorTestPlan',
                 reportFiles: 'index.html',
                 reportName: 'JMeter Report',
                 ])
