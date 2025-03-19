@@ -20,8 +20,8 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM',
                         branches: [[name: 'main']],
-                        userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
-                        credentialsId: 'github_hp']]])
+                        userRemoteConfigs: [[url: 'https://github.com/pradeepbrucelee/java_app_ha.git',
+                        credentialsId: '2ffdc07a-cfc7-448b-afd1-49f24f7f7c44']]])
             }
         }
 
