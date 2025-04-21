@@ -3,10 +3,7 @@ pipeline {
 
     
 
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '2'))
-    }
-
+   
     environment {
         TOMCAT_URL = 'http://52.87.185.216:8000/'
         CONTEXT_PATH = '/calculator'
