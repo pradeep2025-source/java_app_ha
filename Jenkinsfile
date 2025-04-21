@@ -1,9 +1,5 @@
 pipeline {
-    agent any
-
-    
-
-   
+    agent any    
     environment {
         TOMCAT_URL = 'http://52.87.185.216:8000/'
         CONTEXT_PATH = '/calculator'
@@ -60,11 +56,10 @@ pipeline {
                 
                         cd /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target
                         cp -r /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target/*.war  /var/lib/tomcat10/webapps/ROOT
-                    }                                           
-                  }
-            }
+                }                                           
+                  
         }
-
+        
     }
 
     post {
