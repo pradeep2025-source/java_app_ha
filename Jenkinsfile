@@ -60,7 +60,7 @@ pipeline {
                 
                         cd /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target
                         cp -r /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target/*.war  /var/lib/tomcat10/webapps/ROOT
-                                                               
+                    }                                           
                   }
             }
         }
