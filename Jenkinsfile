@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_URL = 'http://3.109.213.90:8080'
+        TOMCAT_URL = 'http://52.87.185.216:8000/'
         CONTEXT_PATH = '/calculator'
     }
 
@@ -21,7 +21,7 @@ pipeline {
                 checkout([$class: 'GitSCM',
                         branches: [[name: 'main']],
                         userRemoteConfigs: [[url: 'https://github.com/pradeepbrucelee/java_app_ha.git',
-                        credentialsId: '2ffdc07a-cfc7-448b-afd1-49f24f7f7c44']]])
+                        credentialsId: '5bf9bcf1-a7f6-4a2e-8859-c8f510a7cadd']]])
             }
         }
 
