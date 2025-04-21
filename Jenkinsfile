@@ -53,7 +53,7 @@ pipeline {
         stage('Deploy-Tomcat') {
             steps {
                 sh '''
-                    cd "/var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target"
+                    cd "/var/lib/jenkins/workspace/JavaprojectwithJenkinsfile/calculator_app/target"
                     cp -r *.war /var/lib/tomcat10/webapps/ROOT/
                 '''
             }                                           
