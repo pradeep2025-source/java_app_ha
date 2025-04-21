@@ -10,9 +10,9 @@ pipeline {
         stage('Code Checkout with checkout') {
             steps {
                 checkout([$class: 'GitSCM',
-                        branches: [[name: 'main']],
-                        userRemoteConfigs: [[url: 'https://github.com/pradeepbrucelee/java_app_ha.git',
-                        credentialsId: '5bf9bcf1-a7f6-4a2e-8859-c8f510a7cadd']]])
+                          branches: [[name: 'main']],
+                          userRemoteConfigs: [[url: 'https://github.com/pradeepbrucelee/java_app_ha.git',
+                                               credentialsId: '5bf9bcf1-a7f6-4a2e-8859-c8f510a7cadd']]])
             }
         }
 
@@ -51,28 +51,26 @@ pipeline {
         }
 
         stage('Deploy-Tomcat') {
-            
             steps {
-                
-                        cd /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target
-                        cp -r /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target/*.war  /var/lib/tomcat10/webapps/ROOT
-                }                                           
-                  
+                sh '''
+                    cd "/var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target"
+                    cp -r *.war /var/lib/tomcat10/webapps/ROOT/
+                '''
+            }                                           
         }
         
     }
 
     post {
         always {
-            // cleanWs()
-            publishHTML (target: [
+            publishHTML(target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
                 reportDir: 'calculator_app/target/jmeter/reports/CalculatorTestPlan',
                 reportFiles: 'index.html',
                 reportName: 'JMeter Report',
-                ])
+            ])
 
             sh '''
                 ls -lrt
@@ -80,5 +78,4 @@ pipeline {
             '''
         }
     }
-
 }
