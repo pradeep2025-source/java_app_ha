@@ -67,6 +67,9 @@ pipeline {
                      cd /var/lib/jenkins/workspace/JavaProject/calculator_app/target
                      sudo -S chmod -R +X  calculator.war
                      mv calculator.war /var/lib/tomcat10/webapps/
+                     ls -lrt
+                     cd /var/lib/tomcat10/webapps/
+                     ls-lrt
                     '''
                 }
             }
