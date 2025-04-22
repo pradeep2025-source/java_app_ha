@@ -60,13 +60,7 @@ pipeline {
         }
 
         stage('Deploy-Tomcat') {
-            input {
-                message "Do you want to deploy application to Tomcat10?"
-                parameters {
-                    choice(name: 'DEPLOY_CHOICE', choices: ['yes', 'no'])
-                }
-            }
-            steps {
+                        steps {
                 script {
                     if ( DEPLOY_CHOICE == 'yes') {
                         echo "Deploying to Tomcat10: $TOMCAT_URL"
@@ -81,24 +75,4 @@ pipeline {
         }
 
     }
-
-    post {
-        always {
-            // cleanWs()
-            publishHTML (target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'calculator_app/target/jmeter/reports/CalculatorTestPlan',
-                reportFiles: 'index.html',
-                reportName: 'JMeter Report',
-                ])
-
-            sh '''
-                ls -lrt
-                tree
-            '''
-        }
-    }
-
-}
+ }
