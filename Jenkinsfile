@@ -62,14 +62,10 @@ pipeline {
         stage('Deploy-Tomcat') {
                         steps {
                 script {
-                    if ( DEPLOY_CHOICE == 'yes') {
-                        echo "Deploying to Tomcat10: $TOMCAT_URL"
-                        deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
-                                         contextPath: "${env.CONTEXT_PATH}",
-                                         war: 'calculator_app/target/calculator.war'
-                    } else {
-                        echo "Skipped deployment to Tomcat10: $TOMCAT_URL"
-                    }
+                    sh '''
+                    sudo su -
+                    cd /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target
+                    cp -r /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target/calculator.war /var/lib/tomcat10/webapps/ROOT
                 }
             }
         }
