@@ -69,7 +69,7 @@ pipeline {
                      mv calculator.war /var/lib/tomcat10/webapps/
                      ls -lrt
                      cd /var/lib/tomcat10/webapps/
-                     ls-lrt
+                     ls -lrt
                     '''
                 }
             }
