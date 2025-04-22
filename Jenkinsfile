@@ -64,7 +64,7 @@ pipeline {
                 script {
                     sh '''
                      cd /var/lib/jenkins/workspace/JavaProject/calculator_app/target
-                     sudo chmod -R +X ./calculator.war
+                     sudo -S chmod -R +X ./calculator.war
                      cp -r /var/lib/jenkins/workspace/JavaProject/calculator_app/target/calculator.war /var/lib/tomcat10/webapps
                     '''
                 }
