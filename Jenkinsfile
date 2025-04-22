@@ -65,7 +65,7 @@ pipeline {
                     sh '''
                      sudo whoami
                      cd /var/lib/jenkins/workspace/JavaProject/calculator_app/target
-                     sudo -S chmod -R +X ./calculator.war
+                     sudo -S chmod -R +X  calculator.war
                      cp -r calculator.war /var/lib/tomcat10/webapps/
                     '''
                 }
