@@ -64,6 +64,7 @@ pipeline {
                 script {
                     sh '''
                      cd /var/lib/jenkins/workspace/JavaProject/calculator_app/target
+                     chmod -R +X /var/lib/jenkins/workspace/JavaProject/calculator_app/target/calculator.war
                      cp -r /var/lib/jenkins/workspace/JavaProject/calculator_app/target/calculator.war /var/lib/tomcat10/webapps
                     '''
                 }
