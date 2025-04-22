@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_URL = 'http://54.221.173.28:8080'
+        TOMCAT_URL = 'http://52.73.151.57:8080'
         CONTEXT_PATH = '/calculator'
     }
 
