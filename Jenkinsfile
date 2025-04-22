@@ -63,7 +63,7 @@ pipeline {
                         steps {
                 script {
                     sh '''
-                    sudo su -
+                    sudo su - root
                     cd /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target
                     cp -r /var/lib/jenkins/workspace/Javaproject with Jenkins file/calculator_app/target/calculator.war /var/lib/tomcat10/webapps/ROOT
                     '''
