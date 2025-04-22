@@ -1,7 +1,16 @@
 pipeline {
-    agent any    
+    agent any
+
+    tools {
+        maven 'maven_tool'
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '2'))
+    }
+
     environment {
-        TOMCAT_URL = 'http://52.87.185.216:8000/'
+        TOMCAT_URL = 'http://3.109.213.90:8080'
         CONTEXT_PATH = '/calculator'
     }
 
@@ -10,9 +19,9 @@ pipeline {
         stage('Code Checkout with checkout') {
             steps {
                 checkout([$class: 'GitSCM',
-                          branches: [[name: 'main']],
-                          userRemoteConfigs: [[url: 'https://github.com/pradeepbrucelee/java_app_ha.git',
-                                               credentialsId: '5bf9bcf1-a7f6-4a2e-8859-c8f510a7cadd']]])
+                        branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
+                        credentialsId: 'github_hp']]])
             }
         }
 
@@ -51,26 +60,39 @@ pipeline {
         }
 
         stage('Deploy-Tomcat') {
+            input {
+                message "Do you want to deploy application to Tomcat10?"
+                parameters {
+                    choice(name: 'DEPLOY_CHOICE', choices: ['yes', 'no'])
+                }
+            }
             steps {
-                sh '''
-                    cd "/var/lib/jenkins/workspace/JavaprojectwithJenkinsfile/calculator_app/target"
-                    cp -r *.war /var/lib/tomcat10/webapps/ROOT/
-                '''
-            }                                           
+                script {
+                    if ( DEPLOY_CHOICE == 'yes') {
+                        echo "Deploying to Tomcat10: $TOMCAT_URL"
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
+                                         contextPath: "${env.CONTEXT_PATH}",
+                                         war: 'calculator_app/target/calculator.war'
+                    } else {
+                        echo "Skipped deployment to Tomcat10: $TOMCAT_URL"
+                    }
+                }
+            }
         }
-        
+
     }
 
     post {
         always {
-            publishHTML(target: [
+            // cleanWs()
+            publishHTML (target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
                 reportDir: 'calculator_app/target/jmeter/reports/CalculatorTestPlan',
                 reportFiles: 'index.html',
                 reportName: 'JMeter Report',
-            ])
+                ])
 
             sh '''
                 ls -lrt
@@ -78,4 +100,5 @@ pipeline {
             '''
         }
     }
+
 }
